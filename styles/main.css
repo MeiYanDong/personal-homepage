@@ -9,22 +9,35 @@ body {
     font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f5f5f5;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    padding-top: 5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
 }
 
 /* 通用部分样式 */
 .section {
-    background-color: white;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
     padding: 2rem;
+    padding-top: 4rem; /* 增加顶部内边距，避免导航栏遮挡 */
     margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px rgba(31, 38, 135, 0.2);
 }
 
 h1 {
@@ -32,6 +45,20 @@ h1 {
     color: #2c3e50;
     margin-bottom: 1.5rem;
     text-align: center;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    border-radius: 2px;
 }
 
 h2 {
@@ -49,13 +76,24 @@ h2::after {
     left: 0;
     width: 50px;
     height: 3px;
-    background-color: #3498db;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    border-radius: 1.5px;
 }
 
 h3 {
     font-size: 1.5rem;
     color: #34495e;
     margin-bottom: 1rem;
+}
+
+/* 动画关键帧 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* 响应式设计 */

@@ -116,6 +116,45 @@ function renderJourney() {
 }
 
 // 页面加载完成后初始化
+function initNavigation() {
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // 添加平滑滚动效果
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            const navHeight = document.querySelector('.nav-container').offsetHeight;
+            const targetPosition = targetSection.offsetTop - navHeight - 50; // 增加更多的偏移量，避免遮挡
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // 监听滚动事件，更新导航状态
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const navHeight = document.querySelector('.nav-container').offsetHeight;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - navHeight - 100; // 增加滚动监听的偏移量
+            const sectionHeight = section.clientHeight;
+            if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                current = '#' + section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
 document.addEventListener('DOMContentLoaded', () => {
     renderReadingStats();
     renderOtherStats();
